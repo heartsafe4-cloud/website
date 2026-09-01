@@ -23,13 +23,40 @@
     });
   }
 
-  /* Scroll reveal */
+  /* Scroll reveal.
+     IntersectionObserver handles the normal case; a scroll-driven sweep catches
+     anything skipped over by a fast scroll or an in-page jump, so no section is
+     ever left invisible. */
+  var revealEls = [].slice.call(document.querySelectorAll('.reveal'));
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  revealEls.forEach(function (el) { io.observe(el); });
+
+  var sweepQueued = false;
+  function sweepReveals() {
+    sweepQueued = false;
+    var vh = window.innerHeight;
+    revealEls = revealEls.filter(function (el) {
+      if (el.classList.contains('in')) return false;
+      if (el.getBoundingClientRect().top < vh - 40) {
+        el.classList.add('in');
+        io.unobserve(el);
+        return false;
+      }
+      return true;
+    });
+  }
+  function queueSweep() {
+    if (sweepQueued) return;
+    sweepQueued = true;
+    requestAnimationFrame(sweepReveals);
+  }
+  window.addEventListener('scroll', queueSweep, { passive: true });
+  window.addEventListener('resize', queueSweep);
+  queueSweep();
 
   /* Count-up stats */
   var counters = document.querySelectorAll('[data-countup]');

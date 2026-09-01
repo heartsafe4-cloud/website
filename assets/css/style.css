@@ -724,3 +724,197 @@ footer{background:#fff;border-top:1px solid var(--line);color:var(--muted);margi
 @media (max-width:1020px){.also-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:860px){.page-hero--product{padding:110px 0 48px}}
 @media (max-width:620px){.also-grid{grid-template-columns:1fr}}
+
+
+/* ============================================================
+   v9: professional contact page with map band
+   ============================================================ */
+.contact-hero{padding:150px 0 clamp(56px,7vw,96px);background:linear-gradient(160deg,var(--blue-soft) 0%,#fff 62%)}
+.contact-hero__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,80px);align-items:start}
+.contact-intro h1{max-width:520px}
+.contact-intro .lead{margin-top:18px;font-size:1.08rem;max-width:460px}
+
+.contact-details{
+  margin-top:clamp(32px,4vw,48px);
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3vw,38px) 32px;
+}
+.cd-item h3{
+  font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--red);margin-bottom:10px;
+}
+.cd-item a{
+  display:inline-block;font-family:var(--font-head);font-weight:700;font-size:1.06rem;
+  color:var(--navy-deep);line-height:1.45;transition:color .2s;
+}
+.cd-item a:hover{color:var(--red)}
+.cd-item span{display:block;margin-top:6px;font-size:.9rem;color:var(--muted)}
+.cd-wa{display:inline-flex !important;align-items:center;gap:9px;color:var(--green-wa) !important}
+.cd-wa:hover{color:#1eb857 !important}
+
+.contact-hero .form-card h2{font-size:1.55rem}
+.contact-hero .form-intro{margin:8px 0 26px;font-size:.97rem}
+.contact-hero .form-card .btn{width:100%}
+.contact-hero .form-note a{color:var(--red);font-weight:600}
+
+/* Map */
+.map-band{position:relative;height:clamp(360px,46vh,520px);background:var(--bg-alt)}
+.map-band iframe{width:100%;height:100%;border:0;display:block;filter:saturate(.9)}
+.map-card{
+  position:absolute;top:clamp(18px,4vw,38px);left:50%;transform:translateX(-590px);
+  background:#fff;border-radius:var(--r-md);padding:22px 26px;
+  box-shadow:var(--shadow-lg);max-width:290px;
+}
+.map-card h3{font-size:1.1rem;margin-bottom:4px}
+.map-card p{font-size:.93rem}
+.map-card .link{
+  display:inline-flex;align-items:center;gap:8px;margin-top:12px;
+  font-family:var(--font-head);font-weight:700;color:var(--red);font-size:.92rem;transition:gap .2s;
+}
+.map-card:hover .link{gap:12px}
+
+@media (max-width:1280px){
+  .map-card{left:clamp(18px,4vw,38px);transform:none}
+}
+@media (max-width:860px){
+  .contact-hero{padding-top:120px}
+  .contact-hero__grid{grid-template-columns:1fr}
+  .contact-intro .lead,.contact-intro h1{max-width:none}
+  .map-band{height:auto}
+  .map-band iframe{height:340px}
+  .map-card{position:static;transform:none;max-width:none;border-radius:0;box-shadow:none;border-top:1px solid var(--line)}
+}
+@media (max-width:560px){
+  .contact-details{grid-template-columns:1fr}
+}
+
+
+/* ============================================================
+   v10: products hero photo, unboxed product images, fade-ins
+   ============================================================ */
+/* Products page hero: office photo + cut-out AED lineup, headline crossing over */
+.products-hero{position:relative;overflow:hidden;padding:150px 0 clamp(220px,26vw,340px);isolation:isolate}
+.products-hero__bg{
+  position:absolute;inset:0;z-index:0;
+  background:url('../img/products-hero-bg.jpg') center/cover no-repeat;
+}
+.products-hero__bg::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(100deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.9) 34%,rgba(255,255,255,.35) 58%,rgba(255,255,255,0) 78%);
+}
+.products-hero__lineup{
+  position:absolute;z-index:1;right:-2%;bottom:-4%;
+  width:min(72%,1080px);height:auto;pointer-events:none;
+  filter:drop-shadow(0 26px 40px rgba(20,36,62,.18));
+  animation:lineupIn 1.1s cubic-bezier(.2,.7,.3,1) both .15s;
+}
+@keyframes lineupIn{from{opacity:0;transform:translateY(38px) scale(.97)}to{opacity:1;transform:none}}
+.products-hero__inner{position:relative;z-index:2}
+.products-hero__copy{max-width:640px}
+.products-hero__copy h1{text-shadow:0 2px 22px rgba(255,255,255,.7)}
+.products-hero__copy .lead{margin-top:18px;font-size:1.12rem;max-width:520px;text-shadow:0 1px 16px rgba(255,255,255,.8)}
+
+@media (max-width:1100px){
+  .products-hero{padding-bottom:clamp(180px,30vw,280px)}
+  .products-hero__lineup{width:86%;right:-6%}
+}
+@media (max-width:860px){
+  .products-hero{padding:120px 0 clamp(150px,44vw,240px)}
+  .products-hero__bg::after{background:linear-gradient(180deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.86) 45%,rgba(255,255,255,.5) 100%)}
+  .products-hero__lineup{width:112%;right:-14%;bottom:-2%}
+  .products-hero__copy{max-width:none}
+}
+
+/* Product detail: title block left, photo down at description level, no box */
+.pd-head{max-width:760px;margin-bottom:clamp(28px,4vw,44px)}
+.pd-head h1{margin-top:6px}
+.page-hero--product .phero-img{
+  background:none;box-shadow:none;padding:0;border-radius:0;
+  align-items:flex-start;justify-content:flex-start;
+}
+.page-hero--product .phero-img img{max-height:420px;width:auto}
+
+/* Richer, staggered fade-ins */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.2,.7,.3,1),transform .75s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal-d1{transition-delay:.09s}
+.reveal-d2{transition-delay:.18s}
+.reveal-d3{transition-delay:.27s}
+/* auto-stagger children of card grids so each card fades in after the last */
+.grid-3 > *:nth-child(1),.grid-2 > *:nth-child(1),.mini-grid > *:nth-child(1),
+.also-grid > *:nth-child(1),.steps > *:nth-child(1),.industry-grid > *:nth-child(1),
+.docs-grid > *:nth-child(1),.tech-band > *:nth-child(1){transition-delay:0s}
+.grid-3 > *:nth-child(2),.grid-2 > *:nth-child(2),.mini-grid > *:nth-child(2),
+.also-grid > *:nth-child(2),.steps > *:nth-child(2),.industry-grid > *:nth-child(2),
+.docs-grid > *:nth-child(2),.tech-band > *:nth-child(2){transition-delay:.09s}
+.grid-3 > *:nth-child(3),.grid-2 > *:nth-child(3),.mini-grid > *:nth-child(3),
+.also-grid > *:nth-child(3),.steps > *:nth-child(3),.industry-grid > *:nth-child(3),
+.docs-grid > *:nth-child(3),.tech-band > *:nth-child(3){transition-delay:.18s}
+.grid-3 > *:nth-child(4),.grid-2 > *:nth-child(4),.mini-grid > *:nth-child(4),
+.industry-grid > *:nth-child(4){transition-delay:.27s}
+.mini-grid > *:nth-child(5),.industry-grid > *:nth-child(5){transition-delay:.34s}
+.mini-grid > *:nth-child(6),.industry-grid > *:nth-child(6){transition-delay:.41s}
+
+@media (prefers-reduced-motion:reduce){
+  .products-hero__lineup{animation:none}
+  .reveal{opacity:1;transform:none}
+}
+
+
+/* ============================================================
+   v11: products hero simplified (white bg, lineup beside copy),
+   product detail image centred
+   ============================================================ */
+.products-hero{position:relative;padding:150px 0 clamp(48px,6vw,84px);background:#fff;overflow:visible;isolation:auto}
+.products-hero__bg{display:none}
+.products-hero__inner{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(24px,4vw,56px);align-items:center}
+.products-hero__copy{max-width:560px}
+.products-hero__copy h1,.products-hero__copy .lead{text-shadow:none}
+.products-hero__lineup{
+  position:static;width:100%;max-width:540px;justify-self:end;pointer-events:none;
+  filter:drop-shadow(0 20px 32px rgba(20,36,62,.16));
+  animation:lineupIn 1s cubic-bezier(.2,.7,.3,1) both .1s;
+}
+@media (max-width:860px){
+  .products-hero{padding:120px 0 48px}
+  .products-hero__inner{grid-template-columns:1fr}
+  .products-hero__copy{max-width:none}
+  .products-hero__lineup{max-width:min(420px,88%);justify-self:center;margin-top:6px}
+}
+
+/* Product detail photo: centred in its column, no box */
+.page-hero--product .phero-img{align-items:center;justify-content:center;align-self:stretch;min-height:340px}
+.page-hero--product .phero-img img{max-height:400px;max-width:100%;width:auto;margin:auto}
+
+/* ============================================================
+   v12: product detail photo back in its soft card
+   ============================================================ */
+.page-hero--product .phero-img{
+  background:linear-gradient(160deg,#fff,var(--blue-soft));
+  border-radius:var(--r-lg);box-shadow:var(--shadow-md);padding:30px;
+  align-items:center;justify-content:center;align-self:stretch;min-height:360px;
+}
+.page-hero--product .phero-img img{max-height:400px;max-width:100%;width:auto;margin:auto}
+
+
+/* ============================================================
+   v13: red fading hero band + paint-glitch hardening
+   ============================================================ */
+.page-hero--red{
+  background:linear-gradient(180deg,var(--red) 0%,#EE6B75 42%,#FBDDE0 78%,#fff 100%);
+}
+.page-hero--red h1{color:#fff;text-shadow:0 2px 20px rgba(120,10,18,.28)}
+.page-hero--red .lead{color:rgba(255,255,255,.95);text-shadow:0 1px 14px rgba(120,10,18,.25)}
+
+/* Stop the white slivers some browsers paint beside the sticky hero on first load */
+html{background:#fff}
+body{background:#fff;overflow-anchor:none}
+.hero-stage{transform:translateZ(0);backface-visibility:hidden}
+.stats-band,.aed-strip,.newsletter,.cta-band,.products-hero{
+  background-clip:padding-box;
+}
+.hero-scroll,.hero-stage,.stats-band,.aed-strip{contain:paint}
+
+
+/* Red hero pages: keep the nav readable over the red band */
+.page-hero--red{padding:150px 0 clamp(72px,9vw,120px)}
+.nav--onhero:not(.scrolled) .nav__drop > a{color:#fff}
