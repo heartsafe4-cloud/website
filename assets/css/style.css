@@ -642,3 +642,85 @@ footer{background:#fff;border-top:1px solid var(--line);color:var(--muted);margi
 .mini-card p{font-size:.86rem;line-height:1.5}
 @media (max-width:1020px){.mini-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:620px){.mini-grid{grid-template-columns:1fr}}
+
+
+/* ============================================================
+   v7: photo-step hero, centred stats, newsletter background
+   ============================================================ */
+/* Hero: 4 step photos crossfading per scroll */
+.hero-steps{position:absolute;inset:0}
+.hero-step{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:44% 58%;
+  opacity:0;transform:scale(1.07);
+  transition:opacity .8s ease,transform 1.4s ease;
+}
+.hero-step.active{opacity:1;transform:scale(1)}
+@media (max-width:860px){
+  .hero-step{object-position:37% 62%}
+}
+
+/* Centred stats */
+.stats-band .stat{text-align:center}
+.stats-band .stat p{margin-inline:auto}
+
+/* Newsletter with flat-lay background photo */
+.newsletter{
+  background:#E63946 url('../img/newsletter-bg.jpg') right center/cover no-repeat;
+  text-align:left;
+}
+.newsletter .container{max-width:1180px}
+.newsletter h2,.newsletter p{max-width:520px}
+.newsletter form{margin:30px 0 0;max-width:520px}
+@media (max-width:860px){
+  .newsletter{background-image:none;background-color:#E63946;text-align:center}
+  .newsletter h2,.newsletter p{max-width:none}
+  .newsletter form{margin:30px auto 0}
+}
+
+
+/* ============================================================
+   v8: ecommerce-style product pages (accordion, also-like grid)
+   ============================================================ */
+.page-hero--product{padding:130px 0 56px}
+.phero-grid--top{align-items:flex-start}
+.pd-info .lead{margin-top:14px;font-size:1.06rem}
+.pd-info .badge-row{margin-top:20px}
+.pd-acc{margin-top:28px;display:flex;flex-direction:column;gap:12px}
+.pd-acc details{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-md);
+  overflow:hidden;box-shadow:var(--shadow-sm);
+}
+.pd-acc summary{
+  cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;
+  font-family:var(--font-head);font-weight:700;color:var(--navy-deep);padding:16px 22px;font-size:1rem;
+}
+.pd-acc summary::-webkit-details-marker{display:none}
+.pd-acc summary::marker,.faq summary::marker{content:""}
+.pd-acc summary .chev{flex:none;transition:.3s;color:var(--red)}
+.pd-acc details[open] summary .chev{transform:rotate(180deg)}
+.pd-acc .answer{padding:0 22px 18px;font-size:.95rem;color:var(--muted)}
+.pd-list{display:flex;flex-direction:column;gap:8px}
+.pd-list li{display:flex;gap:10px;align-items:flex-start}
+.pd-list li svg{flex:none;margin-top:4px;color:var(--red)}
+
+.also-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.also-card{
+  display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);
+  border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm);transition:.3s ease;
+}
+.also-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
+.also-card figure{
+  background:linear-gradient(160deg,var(--blue-soft),#fff);
+  height:190px;display:flex;align-items:center;justify-content:center;padding:22px;
+}
+.also-card figure img{max-height:100%;width:auto;object-fit:contain;transition:transform .4s ease}
+.also-card:hover figure img{transform:scale(1.05)}
+.also-card .body{padding:18px 22px 22px}
+.also-card h3{font-size:1.05rem;margin-bottom:2px}
+.also-card p{font-size:.88rem}
+.also-card .link{display:inline-flex;align-items:center;gap:8px;margin-top:10px;font-family:var(--font-head);font-weight:700;color:var(--red);font-size:.92rem}
+
+@media (max-width:1020px){.also-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:860px){.page-hero--product{padding:110px 0 48px}}
+@media (max-width:620px){.also-grid{grid-template-columns:1fr}}
