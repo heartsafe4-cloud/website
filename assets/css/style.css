@@ -918,3 +918,14 @@ body{background:#fff;overflow-anchor:none}
 /* Red hero pages: keep the nav readable over the red band */
 .page-hero--red{padding:150px 0 clamp(72px,9vw,120px)}
 .nav--onhero:not(.scrolled) .nav__drop > a{color:#fff}
+
+
+/* ============================================================
+   v14: dark navy hero band (News)
+   ============================================================ */
+.page-hero--dark{
+  padding:150px 0 clamp(72px,9vw,120px);
+  background:linear-gradient(180deg,var(--navy) 0%,#22406B 38%,#C9D6E6 80%,#fff 100%);
+}
+.page-hero--dark h1{color:#fff;text-shadow:0 2px 20px rgba(8,18,34,.32)}
+.page-hero--dark .lead{color:rgba(255,255,255,.94);text-shadow:0 1px 14px rgba(8,18,34,.3)}
