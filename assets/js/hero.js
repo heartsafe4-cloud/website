@@ -27,10 +27,11 @@
 })();
 
 /* HeartSafe — stepped video hero.
-   Four short clips, each exactly one chest compression. The opener sits still;
-   every scroll gesture crossfades to the next clip and PLAYS it once (no frame-seeking, so it is
-   always smooth), while the headline advances. Scrolling back replays the
-   previous beat's compression. Clips end paused on their resting frame. */
+   The clip on screen is always the one that will pump: it is parked on its
+   own first frame, so when a scroll arrives it simply plays from the exact
+   pixels already showing (no jump, no blink). Only after the compression
+   finishes does the hero dissolve to the next beat's clip. Works in both
+   directions. No pump on initial load. */
 (function () {
   var section = document.getElementById('hero-scroll');
   if (!section) return;
@@ -44,73 +45,70 @@
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isMobile = window.matchMedia('(max-width: 860px)').matches;
 
-  /* Pick desktop or portrait-cropped footage, then start loading everything */
   clips.forEach(function (v) {
     v.src = v.dataset[isMobile ? 'srcMobile' : 'srcDesktop'] || v.dataset.srcDesktop;
     v.load();
     v.defaultPlaybackRate = 0.8;                   /* a touch slower reads smoother */
     v.playbackRate = 0.8;                          /* (set after load(), which resets it) */
+    v.addEventListener('loadeddata', function () {
+      /* Swap the JPEG poster for the real first frame so play starts from
+         exactly what is on screen. */
+      try { v.currentTime = 0.001; } catch (e) {}
+    });
+    v.addEventListener('ended', settle);
   });
 
-  var beat = 0;
-  var pending = -1;
+  var beat = 0;        /* current beat (headline) */
+  var shown = 0;       /* clip currently on screen: parked at its first frame, or mid-pump */
+  var pumping = false;
 
-  function showClip(i) {
+  function show(i) {
+    shown = i;
     clips.forEach(function (v, k) { v.classList.toggle('active', k === i); });
-    /* Once the outgoing clip has faded, park it hidden at frame 0 so its next
-       activation needs no seek (a visible seek is what causes a flash). */
+    /* once the dissolve is over, park every hidden clip on its first frame */
     setTimeout(function () {
       clips.forEach(function (v, k) {
-        if (k !== i && !v.classList.contains('active')) {
-          try { v.pause(); if (v.currentTime !== 0) v.currentTime = 0; } catch (e) {}
-        }
+        if (k !== shown) { try { v.pause(); v.currentTime = 0.001; } catch (e) {} }
       });
     }, 760);
   }
 
-  function playClip(i) {
-    var v = clips[i];
-    if (reduced) { showClip(i); return; }
-    var go = function () {
-      /* Frame 0 is already decoded (hidden clips are parked there), so the
-         dissolve can start at once; the compression begins a beat later so
-         it plays fully visible instead of half-hidden inside the fade. */
-      showClip(i);
-      setTimeout(function () {
-        if (clips[beat] !== v) return;                 /* user moved on */
-        var p = v.play();
-        if (p && p.catch) p.catch(function () {});
-      }, 260);
-    };
-    if (v.readyState >= 2) go();
-    else {
-      pending = i;
-      v.addEventListener('loadeddata', function once() {
-        v.removeEventListener('loadeddata', once);
-        if (pending === i) go();
-      });
-    }
+  function setWords(b) {
+    words.forEach(function (w, i) { w.classList.toggle('active', i === b); });
+    bars.forEach(function (bar, i) { bar.style.transform = 'scaleX(' + (i <= b ? 1 : 0) + ')'; });
   }
 
-  function render(replay) {
-    words.forEach(function (w, i) { w.classList.toggle('active', i === beat); });
-    bars.forEach(function (b, i) { b.style.transform = 'scaleX(' + (i <= beat ? 1 : 0) + ')'; });
-    if (replay) playClip(beat);                  /* every beat change pumps, forward or back */
-    else showClip(beat);                         /* initial load: still opener, no pump */
+  /* After a pump: dissolve to the clip that belongs to the current beat */
+  function settle() {
+    pumping = false;
+    if (shown !== beat) show(beat);
+    else setTimeout(function () {                 /* same clip again: re-park it quietly */
+      if (!pumping && shown === beat) { try { clips[beat].currentTime = 0.001; } catch (e) {} }
+    }, 760);
+  }
+
+  /* The clip on screen pumps in place */
+  function pump() {
+    var v = clips[shown];
+    if (reduced) { settle(); return; }
+    pumping = true;
+    var p = v.play();
+    if (p && p.catch) p.catch(function () { settle(); });
   }
 
   function requestBeat(i) {
     i = Math.max(0, Math.min(BEATS - 1, i));
     if (i === beat) return;
     beat = i;
-    pending = -1;
-    render(true);
+    setWords(beat);
+    if (pumping) return;                          /* let the current pump finish; settle() moves on */
+    var v = clips[shown];
+    if (v.readyState >= 2 && v.currentTime < 0.05) pump();
+    else show(beat);                              /* not ready: just move to the beat's clip */
   }
 
   /* Touch / keyboard / programmatic scrolling: derive the beat from position.
-     While one of our own smooth scrolls is in flight (after a wheel step) the
-     intermediate positions are ignored, otherwise the beat would snap back and
-     forth and the clip would replay mid-glide. */
+     Intermediate positions during our own smooth scroll are ignored. */
   var lockTarget = -1, lockUntil = 0;
   function onScroll() {
     var vh = window.innerHeight;
@@ -147,7 +145,7 @@
     requestBeat(t);
   }, { passive: false });
 
-  /* The opener holds its resting frame; the first compression only plays on the first scroll */
-  render(false);
+  setWords(0);
+  show(0);
   onScroll();
 })();
