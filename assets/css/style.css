@@ -929,3 +929,27 @@ body{background:#fff;overflow-anchor:none}
 }
 .page-hero--dark h1{color:#fff;text-shadow:0 2px 20px rgba(8,18,34,.32)}
 .page-hero--dark .lead{color:rgba(255,255,255,.94);text-shadow:0 1px 14px rgba(8,18,34,.3)}
+
+
+/* ============================================================
+   v15: video-clip hero (one compression per scroll beat)
+   ============================================================ */
+.hero-clips{position:absolute;inset:0}
+.hero-clip{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:60% 55%;
+  opacity:0;transform:scale(1.03);
+  transition:opacity .55s ease,transform .9s ease;
+  will-change:opacity,transform;
+}
+.hero-clip.active{opacity:1;transform:scale(1)}
+@media (max-width:860px){
+  .hero-clip{object-position:50% 50%}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-clip{transition:none;transform:none}
+}
+
+/* v15b: beat the older `.hero-stage video` rule so clip framing applies */
+.hero-stage video.hero-clip{object-position:60% 55%}
+@media (max-width:860px){ .hero-stage video.hero-clip{object-position:50% 50%} }
