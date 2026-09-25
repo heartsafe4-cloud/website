@@ -14,8 +14,8 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=5c26d8bd">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css?v=6f8b4802">
 </head>
 <body>
 <header class="nav">
@@ -46,75 +46,55 @@
   </div>
 </header>
 
-<section class="contact-hero">
+<section class="contact-hero contact-hero--minimal">
   <div class="container contact-hero__grid">
     <div class="contact-intro reveal">
-      <h1>We are always ready to help you and answer your questions</h1>
-      <p class="lead">AED quotes, live demos, training bookings and maintenance. Send us a message and our team replies within one business day.</p>
+      <h1>Get in touch</h1>
+      <dl class="contact-list">
+        <div><dt>Email:</dt><dd><a href="mailto:support@heartsafe.com.sg">support@heartsafe.com.sg</a></dd></div>
+        <div><dt>Phone / WhatsApp:</dt><dd><a href="https://wa.me/6588453764?text=Hello%20HeartSafe!%20I%27d%20like%20to%20find%20out%20more." target="_blank" rel="noopener">+65 8845 3764</a></dd></div>
+        <div><dt>Address:</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=14+Woodlands+Walk+Singapore+738394" target="_blank" rel="noopener">14 Woodlands Walk<br>Singapore 738394</a></dd></div>
+        <div><dt>Hours:</dt><dd>Mon to Fri, 9am to 6pm</dd></div>
+        <div><dt>Reach us:</dt><dd class="contact-socials">
+          <a href="https://wa.me/6588453764?text=Hello%20HeartSafe!%20I%27d%20like%20to%20find%20out%20more." target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
+          <a href="mailto:support@heartsafe.com.sg" aria-label="Email"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="3"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+          <a href="https://www.google.com/maps/search/?api=1&query=14+Woodlands+Walk+Singapore+738394" target="_blank" rel="noopener" aria-label="Directions"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></a>
+        </dd></div>
+      </dl>
+    </div>
 
-      <div class="contact-details">
-        <div class="cd-item">
-          <h3>Call &amp; WhatsApp</h3>
-          <a href="https://wa.me/6588453764?text=Hello%20HeartSafe!%20I%27d%20like%20to%20find%20out%20more." target="_blank" rel="noopener">+65 8845 3764</a>
-          <span>Mon to Fri, 9am to 6pm</span>
+    <form id="quote-form" class="contact-form reveal reveal-d1">
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="f-name">Your Name</label>
+          <input id="f-name" name="name" type="text" required autocomplete="name" placeholder="Your full name">
         </div>
-        <div class="cd-item">
-          <h3>Our Location</h3>
-          <a href="https://www.google.com/maps/search/?api=1&query=14+Woodlands+Walk+Singapore+738394" target="_blank" rel="noopener">14 Woodlands Walk<br>Singapore 738394</a>
-          <span>Serving all of Singapore</span>
+        <div class="form-field">
+          <label for="f-email">Email address</label>
+          <input id="f-email" name="email" type="email" required autocomplete="email" placeholder="Your email address">
         </div>
-        <div class="cd-item">
-          <h3>Email</h3>
-          <a href="mailto:support@heartsafe.com.sg">support@heartsafe.com.sg</a>
-          <span>Quotes, corporate enquiries and documentation</span>
+        <div class="form-field full">
+          <label for="f-interest">Subject</label>
+          <select id="f-interest" name="interest" required>
+            <option value="Mindray BeneHeart C1A">Mindray BeneHeart C1A: AED quote</option>
+            <option value="Mindray BeneHeart C2">Mindray BeneHeart C2: AED quote</option>
+            <option value="Mindray BeneHeart C2 (4G)">Mindray BeneHeart C2 (4G): connected AED quote</option>
+            <option value="AED Full Accessories Set">AED Full Accessories Set: cabinet &amp; installation</option>
+            <option value="AED Demo">Request an AED demo</option>
+            <option value="CPR + AED Training">CPR + AED training for my team</option>
+            <option value="AED Annual Maintenance">AED annual preventive maintenance</option>
+            <option value="HeartSafe Ready Certification">HeartSafe Ready certification (equip + train)</option>
+            <option value="Something else">Something else</option>
+          </select>
         </div>
-        <div class="cd-item">
-          <h3>Quick enquiry</h3>
-          <a class="cd-wa" href="https://wa.me/6588453764?text=Hello%20HeartSafe!%20I%27d%20like%20to%20find%20out%20more." target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg> Chat on WhatsApp</a>
-          <span>The fastest way to reach us</span>
+        <div class="form-field full">
+          <label for="f-message">Message</label>
+          <textarea id="f-message" name="message" placeholder="Write something..."></textarea>
         </div>
       </div>
-    </div>
-
-    <div class="form-card reveal reveal-d1">
-      <h2>Get in Touch</h2>
-      <p class="form-intro">Tell us about your premises and team, and we will recommend the right AED and training.</p>
-      <form id="quote-form">
-        <div class="form-grid">
-          <div class="form-field full">
-            <label for="f-name">Full name *</label>
-            <input id="f-name" name="name" type="text" required autocomplete="name" placeholder="Tan Wei Ming">
-          </div>
-          <div class="form-field full">
-            <label for="f-company">Company / establishment</label>
-            <input id="f-company" name="company" type="text" autocomplete="organization" placeholder="Acme Pte Ltd">
-          </div>
-          <div class="form-field full">
-            <label for="f-interest">Subject *</label>
-            <select id="f-interest" name="interest" required>
-              <option value="Mindray BeneHeart C1A">Mindray BeneHeart C1A: AED quote</option>
-              <option value="Mindray BeneHeart C2">Mindray BeneHeart C2: AED quote</option>
-              <option value="Mindray BeneHeart C2 (4G)">Mindray BeneHeart C2 (4G): connected AED quote</option>
-              <option value="AED Full Accessories Set">AED Full Accessories Set: cabinet &amp; installation</option>
-              <option value="AED Demo">Request an AED demo</option>
-              <option value="CPR + AED Training">CPR + AED training for my team</option>
-              <option value="AED Annual Maintenance">AED annual preventive maintenance</option>
-              <option value="HeartSafe Ready Certification">HeartSafe Ready certification (equip + train)</option>
-              <option value="Something else">Something else</option>
-            </select>
-          </div>
-          <div class="form-field full">
-            <label for="f-message">Message</label>
-            <textarea id="f-message" name="message" placeholder="e.g. Office of 40 staff in Raffles Place, looking for 1 AED and training for 10 first aiders."></textarea>
-          </div>
-        </div>
-        <button type="submit" class="btn btn--primary" style="margin-top:24px">
-          Send a message
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </button>
-        <p class="form-note">Your message opens in WhatsApp so we can reply immediately. Prefer email? Write to <a href="mailto:support@heartsafe.com.sg">support@heartsafe.com.sg</a>.</p>
-      </form>
-    </div>
+      <button type="submit" class="btn btn--send">Send Message</button>
+      <p class="form-note">Your message opens in WhatsApp so we can reply straight away. We answer within one business day.</p>
+    </form>
   </div>
 </section>
 
@@ -183,6 +163,6 @@
   <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
 </a>
 
-<script src="assets/js/main.js?v=5c26d8bd"></script>
+<script src="assets/js/main.js?v=6f8b4802"></script>
 </body>
 </html>

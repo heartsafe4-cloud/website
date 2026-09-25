@@ -109,7 +109,7 @@
       var lines = [
         'Hello HeartSafe! I would like a quote.',
         'Name: ' + (data.get('name') || '-'),
-        'Company: ' + (data.get('company') || '-'),
+        'Email: ' + (data.get('email') || data.get('company') || '-'),
         'Interested in: ' + (data.get('interest') || '-'),
         'Message: ' + (data.get('message') || '-')
       ];
