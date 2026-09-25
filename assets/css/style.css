@@ -953,3 +953,7 @@ body{background:#fff;overflow-anchor:none}
 /* v15b: beat the older `.hero-stage video` rule so clip framing applies */
 .hero-stage video.hero-clip{object-position:60% 55%}
 @media (max-width:860px){ .hero-stage video.hero-clip{object-position:50% 50%} }
+
+/* v15c: clean cut between clips, no zoom, no blink */
+.hero-clip{transform:none;transition:opacity .22s linear}
+.hero-clip.active{transform:none}

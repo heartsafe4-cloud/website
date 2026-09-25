@@ -1,6 +1,6 @@
 /* HeartSafe — stepped video hero.
-   Four short clips, each exactly one chest compression. Every scroll gesture
-   crossfades to the next clip and PLAYS it once (no frame-seeking, so it is
+   Four short clips, each exactly one chest compression. The opener sits still;
+   every scroll gesture crossfades to the next clip and PLAYS it once (no frame-seeking, so it is
    always smooth), while the headline advances. Scrolling back replays the
    previous beat's compression. Clips end paused on their resting frame. */
 (function () {
@@ -25,13 +25,31 @@
   var beat = 0;
   var pending = -1;
 
+  function showClip(i) {
+    clips.forEach(function (v, k) { v.classList.toggle('active', k === i); });
+    /* Once the outgoing clip has faded, park it hidden at frame 0 so its next
+       activation needs no seek (a visible seek is what causes a flash). */
+    setTimeout(function () {
+      clips.forEach(function (v, k) {
+        if (k !== i && !v.classList.contains('active')) {
+          try { v.pause(); if (v.currentTime !== 0) v.currentTime = 0; } catch (e) {}
+        }
+      });
+    }, 320);
+  }
+
   function playClip(i) {
     var v = clips[i];
-    if (reduced) { try { v.currentTime = Math.max(0, (v.duration || 1) - 0.05); } catch (e) {} return; }
+    if (reduced) { showClip(i); return; }
+    var revealed = false;
+    var reveal = function () { if (revealed) return; revealed = true; showClip(i); };
     var go = function () {
-      try { v.currentTime = 0; } catch (e) {}
+      /* Reveal only when the first real frame has been painted, never before */
+      if (v.requestVideoFrameCallback) v.requestVideoFrameCallback(function () { reveal(); });
+      else v.addEventListener('playing', function once() { v.removeEventListener('playing', once); reveal(); });
       var p = v.play();
-      if (p && p.catch) p.catch(function () { /* autoplay blocked: poster/rest frame stays */ });
+      if (p && p.catch) p.catch(function () { reveal(); });
+      setTimeout(reveal, 400);   /* safety net if no frame callback arrives */
     };
     if (v.readyState >= 2) go();
     else {
@@ -44,14 +62,10 @@
   }
 
   function render(replay) {
-    clips.forEach(function (v, i) {
-      var on = i === beat;
-      v.classList.toggle('active', on);
-      if (!on && !v.paused) v.pause();
-    });
     words.forEach(function (w, i) { w.classList.toggle('active', i === beat); });
     bars.forEach(function (b, i) { b.style.transform = 'scaleX(' + (i <= beat ? 1 : 0) + ')'; });
-    if (replay) playClip(beat);
+    if (beat === 0 || !replay) showClip(beat);   /* beat 0 is the still opener: it never pumps */
+    else playClip(beat);                          /* clip is revealed on its first painted frame */
   }
 
   function requestBeat(i) {
@@ -102,8 +116,7 @@
     requestBeat(t);
   }, { passive: false });
 
-  /* First compression plays on load, then the hero waits for the first scroll */
+  /* The opener holds its resting frame; the first compression only plays on the first scroll */
   render(false);
   onScroll();
-  if (beat === 0) playClip(0);
 })();
