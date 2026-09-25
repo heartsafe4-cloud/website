@@ -1126,3 +1126,28 @@ strong{font-weight:600}
 
 /* v20b: About hero photo */
 .page-hero--about{background-image:url('../img/hero-about.jpg');background-position:center 55%}
+
+
+/* ============================================================
+   v21: active/hover nav item = thin underline, no pill
+   ============================================================ */
+.nav__links > a:not(.btn),.nav__drop > a{position:relative;border-radius:0}
+.nav__links > a:not(.btn)::after,.nav__drop > a::after{
+  content:"";position:absolute;left:16px;right:16px;bottom:4px;height:2px;border-radius:2px;
+  background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .25s ease;
+}
+.nav .nav__links > a:not(.btn):hover::after,.nav .nav__drop > a:hover::after,
+.nav .nav__links a.active::after,.nav .nav__drop > a.active::after{transform:scaleX(1)}
+
+/* kill every pill background on plain links (active + hover), keep the CTA pill */
+.nav .nav__links a.active,.nav .nav__drop > a.active{background:transparent;color:var(--red)}
+.nav .nav__links > a:not(.btn):hover,.nav .nav__drop > a:hover{background:transparent;color:var(--red)}
+.nav.nav--onhero:not(.scrolled) .nav__links a.active,
+.nav.nav--onhero:not(.scrolled) .nav__links > a:not(.btn):hover,
+.nav.nav--onhero:not(.scrolled) .nav__drop > a:hover{background:transparent;color:#fff}
+@media (max-width:860px){
+  /* inside the white mobile drawer the line and words go back to red */
+  .nav.nav--onhero:not(.scrolled) .nav__links a.active,
+  .nav.nav--onhero:not(.scrolled) .nav__links > a:not(.btn):hover{color:var(--red)}
+  .nav__links > a:not(.btn)::after,.nav__drop > a::after{left:18px;right:auto;width:28px}
+}
