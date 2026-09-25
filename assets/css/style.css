@@ -1090,3 +1090,36 @@ strong{font-weight:600}
 /* v19b: header CTA text is always white (base .nav__links a colour must not win) */
 .nav__links a.nav__cta,.nav__links a.nav__cta:hover{color:#fff;background:var(--red)}
 .nav__links a.nav__cta:hover{background:var(--red-dark)}
+
+
+/* ============================================================
+   v20: photo page heroes with red overlay and white words
+   (Contact, News, Training). Nav floats white via .nav--onhero.
+   ============================================================ */
+.page-hero--photo{
+  position:relative;isolation:isolate;color:#fff;
+  padding:clamp(150px,18vw,190px) 0 clamp(72px,9vw,112px);
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+.page-hero--photo::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(100deg,rgba(196,43,56,.94) 0%,rgba(222,48,60,.82) 42%,rgba(230,57,70,.58) 72%,rgba(230,57,70,.42) 100%);
+}
+.page-hero--photo h1{color:#fff;text-shadow:0 2px 22px rgba(120,10,18,.35)}
+.page-hero--photo .lead,.page-hero--photo p{color:rgba(255,255,255,.94);text-shadow:0 1px 14px rgba(120,10,18,.3)}
+.page-hero--photo .btn--primary{background:#fff;color:var(--red);box-shadow:0 10px 26px rgba(120,10,18,.25)}
+.page-hero--photo .btn--primary:hover{background:var(--navy-deep);color:#fff}
+.page-hero--photo .btn--outline{border-color:rgba(255,255,255,.75);color:#fff}
+.page-hero--photo .btn--outline:hover{background:#fff;color:var(--red)}
+.page-hero--contact{background-image:url('../img/hero-contact.jpg')}
+.page-hero--news{background-image:url('../img/hero-news.jpg')}
+.page-hero--training{background-image:url('../img/hero-training.jpg');background-position:center 40%}
+
+/* Contact: the minimal section now follows the photo band */
+.contact-hero--after{padding-top:clamp(56px,7vw,88px)}
+.contact-title{font-size:clamp(2rem,3.4vw,2.8rem);font-weight:500;letter-spacing:-.035em}
+
+@media (max-width:860px){
+  .page-hero--photo{padding-top:120px}
+  .page-hero--photo::before{background:linear-gradient(180deg,rgba(196,43,56,.9) 0%,rgba(230,57,70,.72) 100%)}
+}
