@@ -1161,3 +1161,6 @@ strong{font-weight:600}
 .nav.nav--onhero:not(.scrolled) .nav__links .nav__dropmenu a:hover{color:var(--red);background:var(--red-soft)}
 .nav .nav__links .nav__dropmenu a{border-radius:12px}
 .nav .nav__links .nav__dropmenu a::after{display:none}
+
+/* v23: slow dissolve between hero clips instead of a cut */
+.hero-clip{transition:opacity .62s cubic-bezier(.4,0,.2,1)}

@@ -48,6 +48,8 @@
   clips.forEach(function (v) {
     v.src = v.dataset[isMobile ? 'srcMobile' : 'srcDesktop'] || v.dataset.srcDesktop;
     v.load();
+    v.defaultPlaybackRate = 0.8;                   /* a touch slower reads smoother */
+    v.playbackRate = 0.8;                          /* (set after load(), which resets it) */
   });
 
   var beat = 0;
@@ -63,21 +65,22 @@
           try { v.pause(); if (v.currentTime !== 0) v.currentTime = 0; } catch (e) {}
         }
       });
-    }, 320);
+    }, 760);
   }
 
   function playClip(i) {
     var v = clips[i];
     if (reduced) { showClip(i); return; }
-    var revealed = false;
-    var reveal = function () { if (revealed) return; revealed = true; showClip(i); };
     var go = function () {
-      /* Reveal only when the first real frame has been painted, never before */
-      if (v.requestVideoFrameCallback) v.requestVideoFrameCallback(function () { reveal(); });
-      else v.addEventListener('playing', function once() { v.removeEventListener('playing', once); reveal(); });
-      var p = v.play();
-      if (p && p.catch) p.catch(function () { reveal(); });
-      setTimeout(reveal, 400);   /* safety net if no frame callback arrives */
+      /* Frame 0 is already decoded (hidden clips are parked there), so the
+         dissolve can start at once; the compression begins a beat later so
+         it plays fully visible instead of half-hidden inside the fade. */
+      showClip(i);
+      setTimeout(function () {
+        if (clips[beat] !== v) return;                 /* user moved on */
+        var p = v.play();
+        if (p && p.catch) p.catch(function () {});
+      }, 260);
     };
     if (v.readyState >= 2) go();
     else {
@@ -92,8 +95,8 @@
   function render(replay) {
     words.forEach(function (w, i) { w.classList.toggle('active', i === beat); });
     bars.forEach(function (b, i) { b.style.transform = 'scaleX(' + (i <= beat ? 1 : 0) + ')'; });
-    if (beat === 0 || !replay) showClip(beat);   /* beat 0 is the still opener: it never pumps */
-    else playClip(beat);                          /* clip is revealed on its first painted frame */
+    if (replay) playClip(beat);                  /* every beat change pumps, forward or back */
+    else showClip(beat);                         /* initial load: still opener, no pump */
   }
 
   function requestBeat(i) {
