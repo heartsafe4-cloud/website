@@ -1123,3 +1123,6 @@ strong{font-weight:600}
   .page-hero--photo{padding-top:120px}
   .page-hero--photo::before{background:linear-gradient(180deg,rgba(196,43,56,.9) 0%,rgba(230,57,70,.72) 100%)}
 }
+
+/* v20b: About hero photo */
+.page-hero--about{background-image:url('../img/hero-about.jpg');background-position:center 55%}
