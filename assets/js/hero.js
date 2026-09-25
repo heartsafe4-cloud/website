@@ -48,8 +48,9 @@
   clips.forEach(function (v) {
     v.src = v.dataset[isMobile ? 'srcMobile' : 'srcDesktop'] || v.dataset.srcDesktop;
     v.load();
-    v.defaultPlaybackRate = 0.8;                   /* a touch slower reads smoother */
-    v.playbackRate = 0.8;                          /* (set after load(), which resets it) */
+    var rate = parseFloat(v.dataset.rate) || 1;     /* per-clip speed: each take is a different tempo */
+    v.defaultPlaybackRate = rate;
+    v.playbackRate = rate;                         /* (set after load(), which resets it) */
     v.addEventListener('loadeddata', function () {
       /* Swap the JPEG poster for the real first frame so play starts from
          exactly what is on screen. */
@@ -78,9 +79,15 @@
     bars.forEach(function (bar, i) { bar.style.transform = 'scaleX(' + (i <= b ? 1 : 0) + ')'; });
   }
 
-  /* After a pump: dissolve to the clip that belongs to the current beat */
+  /* After a pump: dissolve to the clip that belongs to the current beat.
+     Reached via the clip's ended event, or by a timer in case the browser
+     never fires it (throttled tab, paused media), so the hero cannot hang. */
+  var pumpTimer = null;
   function settle() {
+    clearTimeout(pumpTimer); pumpTimer = null;
+    if (!pumping) return;
     pumping = false;
+    try { clips[shown].pause(); } catch (e) {}
     if (shown !== beat) show(beat);
     else setTimeout(function () {                 /* same clip again: re-park it quietly */
       if (!pumping && shown === beat) { try { clips[beat].currentTime = 0.001; } catch (e) {} }
@@ -92,6 +99,9 @@
     var v = clips[shown];
     if (reduced) { settle(); return; }
     pumping = true;
+    clearTimeout(pumpTimer);
+    var wall = (isFinite(v.duration) && v.duration > 0 ? v.duration / (v.playbackRate || 1) : 1.6) * 1000;
+    pumpTimer = setTimeout(settle, wall + 350);
     var p = v.play();
     if (p && p.catch) p.catch(function () { settle(); });
   }
