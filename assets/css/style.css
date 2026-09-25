@@ -1059,3 +1059,18 @@ strong{font-weight:600}
   .contact-hero--minimal{padding-top:120px}
   .contact-hero--minimal .contact-hero__grid{grid-template-columns:1fr;gap:40px}
 }
+
+
+/* ============================================================
+   v18: heart-only logo mark in header and footer (client request)
+   ============================================================ */
+.nav__logo svg.logo-mark{height:44px;width:auto}
+.footer-main .logo svg.logo-mark{height:46px;width:auto}
+/* Over the home hero (before scrolling) the nav is transparent on the red
+   overlay, so the mark flips to white with a red pulse line to stay visible */
+.nav--onhero:not(.scrolled) .nav__logo .heart-fill{fill:#fff}
+.nav--onhero:not(.scrolled) .nav__logo .heart-line{stroke:var(--red)}
+@media (max-width:860px){
+  .nav--onhero.open .nav__logo .heart-fill{fill:var(--red)}
+  .nav--onhero.open .nav__logo .heart-line{stroke:#fff}
+}

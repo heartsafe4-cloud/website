@@ -1,3 +1,31 @@
+/* Home preloader: red screen, ECG line draws across, then the screen cuts
+   open along the line. Time-based (never waits on slow assets), capped at ~2.2s. */
+(function () {
+  var pl = document.getElementById('preloader');
+  if (!pl) return;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finish = function () {
+    if (!pl.parentNode) return;
+    pl.parentNode.removeChild(pl);
+    document.body.classList.remove('pl-lock');
+  };
+  if (reduced) { finish(); return; }
+  var start = performance.now();
+  var loaded = document.readyState === 'complete';
+  window.addEventListener('load', function () { loaded = true; });
+  setTimeout(function () { pl.classList.add('pl-drawn'); }, 1250);   /* line complete: brief glow */
+  var tryOpen = function () {
+    var elapsed = performance.now() - start;
+    if (elapsed >= 1500 && (loaded || elapsed >= 2600)) {
+      pl.classList.add('pl-open');                                   /* panels part along the line */
+      setTimeout(finish, 850);
+    } else {
+      setTimeout(tryOpen, 60);
+    }
+  };
+  tryOpen();
+})();
+
 /* HeartSafe — stepped video hero.
    Four short clips, each exactly one chest compression. The opener sits still;
    every scroll gesture crossfades to the next clip and PLAYS it once (no frame-seeking, so it is
