@@ -1086,3 +1086,7 @@ strong{font-weight:600}
 .nav__drop > a:not(.active):hover{background:var(--red-soft);color:var(--red-dark)}
 .nav__dropmenu a{color:var(--navy-deep)}
 .nav__dropmenu a:hover{color:var(--red)}
+
+/* v19b: header CTA text is always white (base .nav__links a colour must not win) */
+.nav__links a.nav__cta,.nav__links a.nav__cta:hover{color:#fff;background:var(--red)}
+.nav__links a.nav__cta:hover{background:var(--red-dark)}
