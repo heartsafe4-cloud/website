@@ -1074,3 +1074,15 @@ strong{font-weight:600}
   .nav--onhero.open .nav__logo .heart-fill{fill:var(--red)}
   .nav--onhero.open .nav__logo .heart-line{stroke:#fff}
 }
+
+
+/* ============================================================
+   v19: on a white header the nav words are brand red
+   (over the home hero they stay white; active pill unchanged)
+   ============================================================ */
+.nav__links > a:not(.btn):not(.active),
+.nav__drop > a:not(.active){color:var(--red)}
+.nav__links > a:not(.btn):not(.active):hover,
+.nav__drop > a:not(.active):hover{background:var(--red-soft);color:var(--red-dark)}
+.nav__dropmenu a{color:var(--navy-deep)}
+.nav__dropmenu a:hover{color:var(--red)}
